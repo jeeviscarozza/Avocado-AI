@@ -1,0 +1,18 @@
+# webscraping
+beautifulsoup4
+requests
+pandas
+numpy
+matplotlib
+beautifulsoup4
+scikit-learn
+# nlp
+nltk
+torch
+selenium
+flask
+fastapi
+uvicorn
+spacy
+transformers
+
