@@ -15,4 +15,6 @@ fastapi
 uvicorn
 spacy
 transformers
-
+keybert
+medspacy
+spacy-transformers

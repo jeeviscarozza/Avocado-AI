@@ -70,7 +70,6 @@ def article_contents(article_url):
         'content': content
     }
 
-
 if __name__ == "__main__":
 
     website = 'https://flo.health/menstrual-cycle' #adjust as required

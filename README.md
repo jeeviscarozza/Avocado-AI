@@ -1,8 +1,61 @@
 # Avocado-AI
-first technical project
 
 notebooks were used for my own personal debugging
 
-for llm task:
-selecting openchat 3.5 due to size constraints
+make sure to run the following command in terminal:
+python -m spacy download en_core_web_sm
+
+beautiful soup for webscraping: standard
+challenges: not too many. needed to process javascript
+
+for nlp task:
+spaCy selected as its regarded as the fastest NLP framework in Python
+selecting keybert for summarization. in future work would use openai
+
+
+key phrases: main topic and claim
+
+Will try medspaCy as its speifically designed for medical terminology
+
+1. adding custom target patterns to regognize conditions, treatments, etc
+custom entities: symptom
+condition
+treatment
+difficulty is they are case sensitive
+2. determined medspacy is sufficient for this task with custom targets. however process is a bit manual in this case, but since its specific to womens health, not too difficult of a task. Other pretrained models are will not extract the relevant information
+
+Idea for the future:
+would like to generate training data in the future. develop a mini dataset by handpicking articles related to womens health. use xgboost to generate a larger, labeled dataset
+
+3. using keyBERT for extracting relevant keywords
+
+Future: training custom NER using spacy en core web sm
+1. PRETRAINED MODEL spacy
+entities supported might be too generic. adding custom target entities work for now. in the future we can train on labeled data
+
+Rule-Based Matching:
+
+Pros:
+Quick to set up.
+No need for large labeled datasets.
+Effective if your entities are well-defined and consistent.
+Cons:
+Less flexible for variations in language or unexpected terms.
+Limited to the rules you define.
+
+
+Sources:
+
+https://www.newscatcherapi.com/blog/train-custom-named-entity-recognition-ner-model-with-spacy-v3
+https://github.com/vishwajeet-hogale/Webscrape-and-summarize
+https://www.freecodecamp.org/news/fastapi-quickstart/#how-to-design-the-fastapi-endpoints
+
+Medspacy:
+
+https://github.com/medspacy/medspacy
+
+H. Eyre, A.B. Chapman, K.S. Peterson, J. Shi, P.R. Alba, M.M. Jones, T.L. Box, S.L. DuVall, O. V Patterson,
+Launching into clinical space with medspaCy: a new clinical text processing toolkit in Python,
+AMIA Annu. Symp. Proc. 2021 (in Press. (n.d.). 
+http://arxiv.org/abs/2106.07799.
 
