@@ -6,7 +6,8 @@ numpy
 matplotlib
 beautifulsoup4
 scikit-learn
-# nlp
+
+# nlp, ner
 nltk
 torch
 selenium
@@ -18,3 +19,4 @@ transformers
 keybert
 medspacy
 spacy-transformers
+

@@ -25,15 +25,19 @@ def get_entities(text, nlp):
     return entities
 
 # for getting the keywords using keybert
-def keywords_text(text):
-    # now for summarization
+def keywords_text(text,model):
+    model = KeyBERT('distilbert-base-nli-mean-tokens')
     keywords = model.extract_keywords(text)
     return keywords
 
 # function to summarize the text
 def summarize_text(text):
-    summarizer = pipeline("summarization")
+    summarizer = pipeline("summarization", model="t5-base", tokenizer="t5-base")
+    #max_input_length = 1024  # Maximum length for the model
+    #truncated_text = text[:max_input_length]  # Truncate the text
     summary = summarizer(text, max_length=200, min_length=30, do_sample=False)
+    return summary[0]['summary_text']
+
 
 def load_articles(file_path):
     with open(file_path, 'r') as file:
@@ -188,9 +192,16 @@ target_rules = [
     TargetRule("premature ejaculation", "CONDITION"),
 ]
 
+def save_results(results, output_file):
+    with open(output_file, 'w') as file:
+        json.dump(results, file, indent=2)
+
 def main():
-    file_path = 'article_results/articles.json'
-    articles = load_articles(file_path)
+    
+    input_file_path = 'article_results/articles.json' #adjust here!
+    output_file_path = 'article_results/analyzed_articles.json' #adjust here
+
+    articles = load_articles(input_file_path)
 
     # Load the medSpaCy model
     nlp = medspacy.load()
@@ -199,25 +210,30 @@ def main():
     # KEYBERT MODEL
     model = KeyBERT('distilbert-base-nli-mean-tokens')
 
+    results = []
     for article in articles:
         # entities
         text = article['content']
-        get_entities(text, nlp)
+        entities = get_entities(text, nlp)
+        # keywords
+        keywords = keywords_text(text, model)
         # summarize
-        summarize_text(text)
-        # print
-        print(article['title'])
-        print(article['url'])
-        print(article['publication_date'])
+        summary = summarize_text(text)
+        # print the results
         print(f"Title: {article['title']}")
         print("Entities:", entities)
         print("Keywords:", keywords)
         print("Summary:", summary)
         print()
-
-    # save the results
-    with open('article_results/analyzed_articles.json', 'w') as file:
-        json.dump(articles, file, indent=2)
+        results.append({
+            'title': article['title'],
+            'url': article['url'],
+            'publication_date': article['date'],
+            'entities': entities,
+            'keywords': keywords,
+            'summary': summary
+        })
+        save_results(results, output_file_path)
 
 if __name__ == "__main__":
     main()

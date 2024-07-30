@@ -8,6 +8,9 @@ from typing import List
 import spacy
 from keybert import KeyBERT
 import json
+import random
+from summarize import get_entities, summarize_text, add_custom_target_rules
+from scrape_articles import fetch_html_content, get_article_links, article_contents
 
 # Load SpaCy english model
 nlp = spacy.load("en_core_web_sm")

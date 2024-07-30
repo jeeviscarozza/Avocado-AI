@@ -11,7 +11,6 @@ import pandas as pd
 import json
 import time
 
-
 def fetch_html_content(url):
     options = Options()
     options.add_argument('--headless')
@@ -38,35 +37,55 @@ def get_article_links(website):
     return links[:5]
 
 def article_contents(article_url):
+    
     html_content = fetch_html_content(article_url)
     soup = BeautifulSoup(html_content, 'html.parser')
     
     # Extract the title
-    title_tag = soup.find('h1')  
+    title_tag = soup.find('h1')  # Adjust the tag based on actual HTML
     title = title_tag.get_text(strip=True) if title_tag else 'No title'
     
     # Extract the publication date
     date_container = soup.find('div', class_='flo-article-banner-bottom__info-panel-date--item')  
-    date_tag = date_container.find('span')  
+    date_tag = date_container.find('span')  # Adjust the tag based on actual HTML
     date = date_tag.get_text(strip=True) if date_tag else 'No date'
-    
-    # Extract the article content
-    content_tag = soup.find('section', class_='flo-article-text') 
+
     content = []
-    if content_tag:
-        for paragraph in content_tag.find_all('p'):
-            content.append(paragraph.get_text(strip=True))
+
+    # Define classes to search for content
+    classes_to_search = [
+        'flo-content__main', 
+        'flo-article-text', 
+        'flo-article-text__inner'
+    ]
+
+    # Extract content from the specified classes
+    for class_name in classes_to_search:
+        content_tags = soup.find_all(class_=class_name)
+        for tag in content_tags:
+            for element in tag.find_all(['p', 'h1', 'h2', 'h3']):
+                content.append(element.get_text(strip=True))
+        
+        # Extract content under subheadings and their paragraphs
+        for heading in soup.find_all(['h1', 'h2', 'h3']):
+            content.append(heading.get_text(strip=True))
+            sibling = heading.find_next_sibling()
+            while sibling and sibling.name == 'p':
+                content.append(sibling.get_text(strip=True))
+                sibling = sibling.find_next_sibling()
+        
     content = " ".join(content) if content else 'No content'
-    # Print the extracted information for debugging
+        
+        # Print the extracted information for debugging
     print(f"Title: {title}")
     print(f"URL: {article_url}")
     print(f"Date: {date}")
-    print(f"Content Preview: {content[:200]}...")  # Print a preview of the content
-    
+    print(f"Content Preview: {content}...")  # Print a preview of the content
+
     return {
         'title': title,
         'url': article_url,
-        'publication_date': date,
+        'date': date,
         'content': content
     }
 
