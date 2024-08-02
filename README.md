@@ -13,11 +13,10 @@ pip install -r requirements.txt
 4. To run app:
 uvicorn main:app
 
-
 make sure to run the following command in terminal:
 python -m spacy download en_core_web_sm
 
-4. Install Docker Desktop:
+5. Install Docker Desktop:
 https://www.docker.com/products/docker-desktop/
 
 to start executing api, run the following:
