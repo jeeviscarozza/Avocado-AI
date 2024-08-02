@@ -7,11 +7,19 @@ pip install "fastapi[all]"
 pip install -r requirements.txt
 3. To run app:
 uvicorn main:app
-notebooks were used for my own personal debugging
+
 
 make sure to run the following command in terminal:
 python -m spacy download en_core_web_sm
 
+4. Install Docker Desktop:
+https://www.docker.com/products/docker-desktop/
+
+to start executing api, run the following:
+uvicorn main:app --reload
+
+
+Part 1.
 beautiful soup for webscraping: standard
 challenges: not too many. needed to process javascript
 
@@ -64,6 +72,8 @@ avocado_project/
 │   ├── entity_extraction
 │   └── summarization
 └── requirements.txt
+
+notebooks were used for my own personal debugging
 
 Sources:
 

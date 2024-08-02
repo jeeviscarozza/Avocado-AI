@@ -30,7 +30,7 @@ def keywords_text(text,model):
     keywords = model.extract_keywords(text)
     return keywords
 
-# function to summarize the text
+# to summarize the text
 def summarize_text(text):
     summarizer = pipeline("summarization", model="t5-base", tokenizer="t5-base")
     #max_input_length = 1024  # Maximum length for the model
