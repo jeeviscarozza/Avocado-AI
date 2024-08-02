@@ -2,10 +2,15 @@
 
 Setup:
 1. Create new environment
-2. Run the following commands in terminal
+2. Configue input and output file paths in summarize.py
+    input_file_path = 'article_results/articles.json' # adjust here 
+    output_file_path = 'article_results/analyzed_articles.json' # adjust here
+
+3. Run the following commands in terminal
 pip install "fastapi[all]"
 pip install -r requirements.txt
-3. To run app:
+
+4. To run app:
 uvicorn main:app
 
 
@@ -74,7 +79,7 @@ avocado_project/
 └── requirements.txt
 
 notebooks were used for my own personal debugging
-
+Merge branch 'main' of https://github.com/jeeviscarozza/Avocado-AI into main
 Sources:
 
 https://www.newscatcherapi.com/blog/train-custom-named-entity-recognition-ner-model-with-spacy-v3

@@ -198,7 +198,7 @@ def save_results(results, output_file):
 
 def main():
     
-    input_file_path = 'article_results/articles.json' #adjust here!
+    input_file_path = 'article_results/articles.json' # adjust here!
     output_file_path = 'article_results/analyzed_articles.json' #adjust here
 
     articles = load_articles(input_file_path)

@@ -76,11 +76,10 @@ def article_contents(article_url):
         
     content = " ".join(content) if content else 'No content'
         
-        # Print the extracted information for debugging
     print(f"Title: {title}")
     print(f"URL: {article_url}")
     print(f"Date: {date}")
-    print(f"Content Preview: {content}...")  # Print a preview of the content
+    print(f"Content Preview: {content}...")  
 
     return {
         'title': title,
@@ -91,7 +90,7 @@ def article_contents(article_url):
 
 if __name__ == "__main__":
 
-    website = 'https://flo.health/menstrual-cycle' #adjust as required
+    website = 'https://flo.health/menstrual-cycle' # adjust as required
 
     # Get the article links from the website
     article_links = get_article_links(website)
@@ -108,12 +107,12 @@ if __name__ == "__main__":
     output_folder = 'article_results'
     os.makedirs(output_folder, exist_ok=True)
 
-    # Save the extracted data to a JSON file
+    # Save the data to a JSON file
     json_path = os.path.join(output_folder, 'articles.json')
     with open(json_path, 'w') as file:
         json.dump(articles, file, indent=2)
 
-    # Save the extracted data to a CSV file
+    # Save the data to a CSV file
     df = pd.DataFrame(articles)
     csv_path = os.path.join(output_folder, 'articles.csv')
     df.to_csv(csv_path, index=False)

@@ -17,11 +17,10 @@ from fastapi import BackgroundTasks
 
 # main.py
 
-# Load the necessary models and pipelines
 nlp = medspacy.load()
 summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
 
-# Define your data model
+
 class ArticleInput(BaseModel):
     title: str
     date: str
@@ -30,13 +29,13 @@ class ArticleInput(BaseModel):
 
 app = FastAPI()
 
-# Define a function to extract entities
+# function to extract entities
 def get_entities(text):
     doc = nlp(text)
     entities = [(ent.text, ent.label_) for ent in doc.ents]
     return entities
 
-# Define a function to summarize text
+# function to summarize text
 def summarize_text(text):
     summary = summarizer(text, max_length=200, min_length=100, do_sample=False)
     return summary[0]['summary_text']
